@@ -2,11 +2,67 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Destroy Any Website</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* ============ MOBILE CONTROLS CSS ============ */
+  #mobileControls {
+    display: none; /* Hidden on desktop */
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 50;
+  }
+  
+  /* Automatically show controls on touch devices */
+  @media (pointer: coarse) {
+    #mobileControls { display: block; }
+    #hints { display: none !important; } /* Hide keyboard hints */
+  }
+
+  .ctrl-group {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    pointer-events: auto;
+  }
+  
+  .ctrl-top { top: 70px; right: 10px; flex-direction: column; }
+  .ctrl-left { bottom: 20px; left: 10px; }
+  .ctrl-right { bottom: 20px; right: 10px; width: 140px; flex-wrap: wrap; justify-content: flex-end; }
+
+  .ctrl-btn {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .ctrl-btn:active { background: rgba(255, 255, 255, 0.6); color: black; }
+  .ctrl-btn.small { width: 45px; height: 45px; font-size: 16px; border-radius: 12px; }
+
+  .d-pad-grid {
+    display: grid;
+    grid-template-columns: 60px 60px 60px;
+    grid-template-rows: 60px 60px;
+    gap: 5px;
+  }
+  #btnLeft { grid-column: 1; grid-row: 2; }
+  #btnDown { grid-column: 2; grid-row: 2; }
+  #btnRight { grid-column: 3; grid-row: 2; }
+</style>
 </head>
 <body>
 
@@ -93,6 +149,30 @@
       <div><kbd>RMB</kbd><span>Grenade</span></div>
       <div><kbd>1-7</kbd><kbd>WHEEL</kbd><span>Weapon</span></div>
       <div><kbd>TAB</kbd><span>Score</span><kbd>ESC</kbd><span>Pause</span></div>
+    </div>
+  </div>
+
+  <!-- ============ MOBILE CONTROLS ============ -->
+  <div id="mobileControls">
+    <!-- Top Right Menus -->
+    <div class="ctrl-group ctrl-top">
+      <button class="ctrl-btn small" id="btnScore">📊</button>
+      <button class="ctrl-btn small" id="btnPause">⏸</button>
+    </div>
+    
+    <!-- Left D-PAD -->
+    <div class="ctrl-group ctrl-left d-pad-grid">
+      <button class="ctrl-btn" id="btnLeft">◄</button>
+      <button class="ctrl-btn" id="btnDown">▼</button>
+      <button class="ctrl-btn" id="btnRight">►</button>
+    </div>
+    
+    <!-- Right Action Buttons -->
+    <div class="ctrl-group ctrl-right">
+      <button class="ctrl-btn small" id="btnWeapon">WPN</button>
+      <button class="ctrl-btn small" id="btnGrenade">💣</button>
+      <button class="ctrl-btn" id="btnShoot">🎯</button>
+      <button class="ctrl-btn" id="btnJump">▲</button>
     </div>
   </div>
 
